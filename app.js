@@ -890,6 +890,3 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('settingsModal').classList.remove('show');
         }
     });
-});
-
-
