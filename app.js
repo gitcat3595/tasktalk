@@ -369,8 +369,14 @@ function renderTasks() {
         // ドラッグ&ドロップイベント
         setupDragAndDrop();
     });
+    
+//    
+const voiceSection = document.querySelector('.voice-input-section');
+if (voiceSection) {
+    container.appendChild(voiceSection);
+    voiceSection.classList.remove('hidden');
 }
-
+}
 // 完了画面を表示
 function showCompletionScreen() {
     const container = document.getElementById('tasksContainer');
