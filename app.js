@@ -867,7 +867,6 @@ function loadApiKey() {
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 既存の初期化処理
     loadCategories();
     loadTasks();
     loadApiKey();
@@ -894,20 +893,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // カテゴリ設定
-    document.getElementById('settingsBtn')
-        ?.addEventListener('click', openSettings);
-
-    document.getElementById('closeModal')
-        ?.addEventListener('click', () => {
-            document.getElementById('settingsModal').classList.remove('show');
-        });
-
-    document.getElementById('settingsModal')
-        ?.addEventListener('click', (e) => {
-            if (e.target.id === 'settingsModal') {
-                e.currentTarget.classList.remove('show');
+    // フィルターボタンのイベントリスナーを追加（← ここを追加）
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+            if (filter) {
+                setFilter(filter);
             }
         });
+    });
+
+    // カテゴリ設定
+    document.getElementById('settingsBtn')?.addEventListener('click', openSettings);
+
+    document.getElementById('closeModal')?.addEventListener('click', () => {
+        document.getElementById('settingsModal').classList.remove('show');
+    });
+
+    document.getElementById('settingsModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'settingsModal') {
+            e.currentTarget.classList.remove('show');
+        }
+    });
 
 });
