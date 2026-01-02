@@ -834,67 +834,83 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
-    alert(!!(window.SpeechRecognition || window.webkitSpeechRecognition));
+  // まず、対応状況を必ず表示（ページ読み込み直後に出る）
+  const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+  alert(`SpeechRecognition supported: ${speechSupported}`);
 
+  // 以降の処理でDOM要素が無い場合に落ちるのを防ぐため、存在チェックしながら進める
+  try {
     loadCategories();
     loadTasks();
     loadApiKey();
-    
-    // 初期状態のステータステキストを設定
-    document.getElementById('statusText').textContent = '内容からやることリストを作ります';
-    
-    // 初期表示：タスクがない場合はリストを非表示
+
+    const statusEl = document.getElementById('statusText');
+    if (statusEl) statusEl.textContent = '内容からやることリストを作ります';
+
     renderTasks();
-    
+
     const recognitionReady = initSpeechRecognition();
-    
+
     // 音声入力ボタン
-    document.getElementById('voiceBtn').addEventListener('click', () => {
+    const voiceBtn = document.getElementById('voiceBtn');
+    if (voiceBtn) {
+      voiceBtn.addEventListener('click', () => {
         if (!recognitionReady) return;
-        
-        if (app.recognition && document.getElementById('voiceBtn').classList.contains('recording')) {
-            app.recognition.stop();
+
+        if (app.recognition && voiceBtn.classList.contains('recording')) {
+          app.recognition.stop();
         } else {
-            app.recognition.start();
+          app.recognition.start();
         }
-    });
-    
+      });
+    } else {
+      console.warn('voiceBtn が見つかりません');
+    }
+
     // フィルターボタン
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            setFilter(btn.dataset.filter);
-        });
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => setFilter(btn.dataset.filter));
     });
-    
+
     // API設定ボタン
-    document.getElementById('apiSettingsBtn').addEventListener('click', openApiSettings);
-    
+    const apiBtn = document.getElementById('apiSettingsBtn');
+    if (apiBtn) apiBtn.addEventListener('click', openApiSettings);
+
     // APIキー保存ボタン
-    document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
-    
+    const saveKeyBtn = document.getElementById('saveApiKey');
+    if (saveKeyBtn) saveKeyBtn.addEventListener('click', saveApiKey);
+
     // API設定モーダルを閉じる
-    document.getElementById('closeApiModal').addEventListener('click', () => {
-        document.getElementById('apiSettingsModal').classList.remove('show');
+    const closeApi = document.getElementById('closeApiModal');
+    if (closeApi) closeApi.addEventListener('click', () => {
+      const m = document.getElementById('apiSettingsModal');
+      if (m) m.classList.remove('show');
     });
-    
+
     // カテゴリ設定ボタン
-    document.getElementById('settingsBtn').addEventListener('click', openSettings);
-    
+    const settingsBtn = document.getElementById('settingsBtn');
+    if (settingsBtn) settingsBtn.addEventListener('click', openSettings);
+
     // カテゴリ設定モーダルを閉じる
-    document.getElementById('closeModal').addEventListener('click', () => {
-        document.getElementById('settingsModal').classList.remove('show');
+    const closeModal = document.getElementById('closeModal');
+    if (closeModal) closeModal.addEventListener('click', () => {
+      const m = document.getElementById('settingsModal');
+      if (m) m.classList.remove('show');
     });
-    
+
     // モーダル外をクリックで閉じる
-    document.getElementById('apiSettingsModal').addEventListener('click', (e) => {
-        if (e.target.id === 'apiSettingsModal') {
-            document.getElementById('apiSettingsModal').classList.remove('show');
-        }
+    const apiModal = document.getElementById('apiSettingsModal');
+    if (apiModal) apiModal.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'apiSettingsModal') apiModal.classList.remove('show');
     });
-    
-    document.getElementById('settingsModal').addEventListener('click', (e) => {
-        if (e.target.id === 'settingsModal') {
-            document.getElementById('settingsModal').classList.remove('show');
-        }
+
+    const settingsModal = document.getElementById('settingsModal');
+    if (settingsModal) settingsModal.addEventListener('click', (e) => {
+      if (e.target && e.target.id === 'settingsModal') settingsModal.classList.remove('show');
     });
+
+  } catch (err) {
+    console.error('DOMContentLoaded 内で例外:', err);
+    alert('JSエラーで初期化が止まりました。Consoleを確認してください。');
+  }
 });
