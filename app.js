@@ -399,7 +399,6 @@ function showCompletionScreen() {
 }
     // バブルエフェクトを大量に発生
     createMassiveBubbleBurst();
-}
 
 // 大量のバブル破裂エフェクト
 function createMassiveBubbleBurst() {
