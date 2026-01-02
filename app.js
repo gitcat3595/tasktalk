@@ -306,7 +306,7 @@ function renderTasks() {
         categoryHeader.className = 'category-header';
         
         // カテゴリカラーとグラデーション設定
-        const colorLight = lightenColor(category.color, 15);
+        const colorLight = lightenColor(category.color, 6);
         categoryHeader.style.background = `linear-gradient(to right, ${category.color} 0%, ${colorLight} 80%, ${category.color} 100%)`;
         
         categoryHeader.innerHTML = `
