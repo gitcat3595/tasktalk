@@ -262,6 +262,7 @@ function renderTasks() {
     const container = document.getElementById('tasksContainer');
     const filterSection = document.querySelector('.filter-section');
     const header = document.querySelector('header');
+    const voiceSection = document.querySelector('.voice-input-section');
 
     let visibleTasks = app.tasks;
 
@@ -306,7 +307,6 @@ function renderTasks() {
         const categoryCard = document.createElement('div');
         categoryCard.className = 'category-card';
         
-             
         // カテゴリヘッダーに長押しイベントを追加
         let pressTimer;
         const categoryHeader = document.createElement('div');
@@ -337,13 +337,14 @@ function renderTasks() {
         });
         
         // タッチデバイス対応
-        categoryHeader.addEventListener('touchstart', () => {
+        categoryHeader.addEventListener('touchstart', (e) => {
+            e.preventDefault();
             pressTimer = setTimeout(() => {
                 openCategoryEdit(category.id);
             }, 500);
         });
         
-        categoryHeader.addEventListener('touchend', () => {
+        categoryHeader.addEventListener('touchend', (e) => {
             clearTimeout(pressTimer);
         });
         
@@ -372,26 +373,24 @@ function renderTasks() {
         
         categoryCard.appendChild(tasksList);
         container.appendChild(categoryCard);
-        
-        // ドラッグ&ドロップイベント
-        setupDragAndDrop();
     });
     
-//    
-const voiceSection = document.querySelector('.voice-input-section');
-const voiceBtnText = voiceSection?.querySelector('.btn-text');
+    // ドラッグ&ドロップイベント
+    setupDragAndDrop();
 
-if (voiceSection) {
-    container.appendChild(voiceSection);
-    voiceSection.classList.remove('hidden');
+    // 音声入力セクションを最後に追加
+    if (voiceSection) {
+        container.appendChild(voiceSection);
+        voiceSection.classList.remove('hidden');
 
-    // ★ タスク作成後は文言を変更
-    if (voiceBtnText) {
-        voiceBtnText.textContent = 'もう一度話す';
+        // タスク作成後は文言を変更
+        const voiceBtnText = voiceSection.querySelector('.btn-text');
+        if (voiceBtnText) {
+            voiceBtnText.textContent = 'もう一度話す';
+        }
     }
 }
 
-}
 // 完了画面を表示
 function showCompletionScreen() {
     const container = document.getElementById('tasksContainer');
