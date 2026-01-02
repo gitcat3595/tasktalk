@@ -373,14 +373,19 @@ function renderTasks() {
 
 // 完了画面を表示
 function showCompletionScreen() {
-    const container = document.getElementById('tasksContainer');
+     const container = document.getElementById('tasksContainer');
     const filterSection = document.querySelector('.filter-section');
     const voiceSection = document.querySelector('.voice-input-section');
-    
+    const settingsBtn = document.getElementById('settingsBtn');
+
+    if (settingsBtn) {
+        settingsBtn.style.display = 'none';
+    }
+
     container.classList.remove('hidden');
     filterSection.classList.add('hidden');
     voiceSection.classList.add('hidden');
-    
+
     container.innerHTML = `
         <div class="completion-screen">
             <h2 class="completion-title">すべて終わりです<br>おつかれさま！</h2>
@@ -391,7 +396,7 @@ function showCompletionScreen() {
             </p>
         </div>
     `;
-    
+}
     // バブルエフェクトを大量に発生
     createMassiveBubbleBurst();
 }
