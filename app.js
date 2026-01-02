@@ -273,47 +273,28 @@ function renderTasks() {
 
     container.innerHTML = '';
 
-    if (visibleTasks.length === 0) {
-        container.classList.add('hidden');
-        filterSection.classList.remove('hidden');
-        header.classList.add('hidden');
-        return;
-    }
-
-    container.classList.remove('hidden');
-    filterSection.classList.remove('hidden');
-    header.classList.add('hidden');
-
-　　container.innerHTML = '';
-    
-    app.categories.forEach(cat => {
-　    const tasks = visibleTasks.filter(
-        task => task.category === category.id
-    );
-
-      if (tasks.length === 0) return;
-
-    const categoryCard = document.createElement('div');
-    categoryCard.className = 'category-card';
-        
-        
-    
-    container.innerHTML = '';
-    
     // タスクがない場合
     if (app.tasks.length === 0) {
         container.classList.add('hidden');
         filterSection.classList.add('hidden');
         header.classList.remove('hidden');
         document.getElementById('settingsBtn').style.display = 'none';
-    return;
+        return;
     }
-    
+
     // タスクがある場合は表示、ヘッダーは非表示
     container.classList.remove('hidden');
     filterSection.classList.remove('hidden');
     document.getElementById('settingsBtn').style.display = 'block';
     header.classList.add('hidden');
+
+    // カテゴリごとにタスクを分類
+    const tasksByCategory = {};
+    app.categories.forEach(cat => {
+        tasksByCategory[cat.id] = visibleTasks.filter(
+            task => task.category === cat.id
+        );
+    });
     
     // カテゴリごとに表示（タスクがあるカテゴリのみ）
     app.categories.forEach(category => {
@@ -325,6 +306,7 @@ function renderTasks() {
         const categoryCard = document.createElement('div');
         categoryCard.className = 'category-card';
         
+             
         // カテゴリヘッダーに長押しイベントを追加
         let pressTimer;
         const categoryHeader = document.createElement('div');
