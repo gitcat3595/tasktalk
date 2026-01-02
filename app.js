@@ -262,16 +262,41 @@ function renderTasks() {
     const container = document.getElementById('tasksContainer');
     const filterSection = document.querySelector('.filter-section');
     const header = document.querySelector('header');
-    
-    let filteredTasks = app.tasks;
+
+    let visibleTasks = app.tasks;
+
     if (app.currentFilter !== 'all') {
-        filteredTasks = app.tasks.filter(task => task.timing === app.currentFilter);
+        visibleTasks = app.tasks.filter(
+            task => task.timing === app.currentFilter
+        );
     }
+
+    container.innerHTML = '';
+
+    if (visibleTasks.length === 0) {
+        container.classList.add('hidden');
+        filterSection.classList.remove('hidden');
+        header.classList.add('hidden');
+        return;
+    }
+
+    container.classList.remove('hidden');
+    filterSection.classList.remove('hidden');
+    header.classList.add('hidden');
+
+　　container.innerHTML = '';
     
-    const tasksByCategory = {};
     app.categories.forEach(cat => {
-        tasksByCategory[cat.id] = filteredTasks.filter(task => task.category === cat.id);
-    });
+　    const tasks = visibleTasks.filter(
+        task => task.category === category.id
+    );
+
+      if (tasks.length === 0) return;
+
+    const categoryCard = document.createElement('div');
+    categoryCard.className = 'category-card';
+        
+        
     
     container.innerHTML = '';
     
@@ -407,7 +432,7 @@ function showCompletionScreen() {
             <h2 class="completion-title">すべて終わりです<br>おつかれさま！</h2>
             <p class="completion-message">
                 これですべてのタスクが完了です<br>
-                もう無理と思っても整理すれば大丈夫<br>
+                もう無理！と思っても整理すれば大丈夫<br>
                 いつでもお手伝いします
             </p>
         </div>
