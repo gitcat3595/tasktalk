@@ -417,9 +417,29 @@ header h1 {
     filter: brightness(1.05);
 }
 
-.category-header:active {
-    transform: scale(0.98);
+.category-header {
+    padding: 16px 20px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.2s ease; /* ← transform を使わない */
+    position: relative;
+    background: linear-gradient(
+        to right,
+        var(--category-color) 0%,
+        var(--category-color-light) 100%
+    );
+
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
 }
+
+
 
 .task-count {
     background: white;
