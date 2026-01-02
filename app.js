@@ -829,6 +829,11 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
+     console.log(
+        'settingsBtn exists:',
+        document.getElementById('settingsBtn')
+    );
+        
     loadCategories();
     loadTasks();
     loadApiKey();
