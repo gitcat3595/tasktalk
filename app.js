@@ -833,11 +833,8 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
-    console.log(
-        'settingsBtn exists:',
-        document.getElementById('settingsBtn')
-    );
-        
+
+    // 既存の初期化処理
     loadCategories();
     loadTasks();
     loadApiKey();
@@ -857,36 +854,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const btn = document.getElementById('voiceBtn');
-
-        try {
-            if (btn.classList.contains('recording')) {
-                app.recognition.stop();
-            } else {
-                app.recognition.start();
-            }
-        } catch (e) {
-            console.error(e);
-            statusText.textContent =
-                '音声認識を開始できません。マイク許可を確認してください。';
+        if (btn.classList.contains('recording')) {
+            app.recognition.stop();
+        } else {
+            app.recognition.start();
         }
-    });
-
-    // フィルター
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            setFilter(btn.dataset.filter);
-        });
     });
 
     // カテゴリ設定
-    document.getElementById('settingsBtn').addEventListener('click', openSettings);
-    document.getElementById('closeModal').addEventListener('click', () => {
-        document.getElementById('settingsModal').classList.remove('show');
-    });
+    document.getElementById('settingsBtn')
+        ?.addEventListener('click', openSettings);
 
-    document.getElementById('settingsModal').addEventListener('click', (e) => {
-        if (e.target.id === 'settingsModal') {
+    document.getElementById('closeModal')
+        ?.addEventListener('click', () => {
             document.getElementById('settingsModal').classList.remove('show');
-        }
-    });
-});  // ← ★これが必要
+        });
+
+    document.getElementById('settingsModal')
+        ?.addEventListener('click', (e) => {
+            if (e.target.id === 'settingsModal') {
+                e.currentTarget.classList.remove('show');
+            }
+        });
+
+});
