@@ -604,9 +604,7 @@ header h1 {
 .settings-btn:hover {
   background: var(--primary-color);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-}
+ }
 
 
 
