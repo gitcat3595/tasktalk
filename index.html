@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskTalk - しゃべるだけでやること整理</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Fredoka:wght@600;700&family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header-pattern-1">
+            <h1 class="app-title">TaskTalk</h1>
+            <p class="tagline">しゃべるだけでやること整理</p>
+            <p class="description">話すだけでタスクリストを完全自動作成<br>あとはどんどんこなすだけ</p>
+            <p class="cta-text">もう無理！と思ったらまずTaskTalkに吐き出そう</p>
+        </header>
+
+        <div class="voice-input-section">
+            <button id="voiceBtn" class="voice-btn">
+                <span class="btn-text">話してみる</span>
+            </button>
+            <div id="statusText" class="status-text"></div>
+        </div>
+
+        <div class="filter-section hidden">
+            <button class="filter-btn" data-filter="today">今日</button>
+            <button class="filter-btn" data-filter="week">今週</button>
+            <button class="filter-btn" data-filter="later">そのうち</button>
+            <button class="filter-btn active" data-filter="all">すべて</button>
+        </div>
+
+        <div id="tasksContainer" class="tasks-container hidden"></div>
+
+        <button id="settingsBtn" class="settings-btn">カテゴリ設定</button>
+        <button id="apiSettingsBtn" class="api-settings-btn">API設定</button>
+    </div>
+
+    <!-- API設定モーダル -->
+    <div id="apiSettingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ChatGPT API設定</h2>
+                <button class="close-btn" id="closeApiModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="api-info">
+                    <p>タスクの抽出にChatGPT APIを使用します。</p>
+                    <p>APIキーは <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a> で取得できます。</p>
+                    <p><small>※ APIキーはブラウザのローカルストレージに保存され、外部には送信されません。</small></p>
+                </div>
+                <div class="api-key-input">
+                    <label>OpenAI API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="sk-...">
+                    <button id="saveApiKey" class="save-btn">保存</button>
+                    <div id="apiKeyStatus" class="api-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- カテゴリ設定モーダル -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>カテゴリ設定</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="categorySettings"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- バブル破裂用のSVGフィルター -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <feBlend in="SourceGraphic" in2="goo" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
