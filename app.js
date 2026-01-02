@@ -834,7 +834,7 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
-     console.log(
+    console.log(
         'settingsBtn exists:',
         document.getElementById('settingsBtn')
     );
@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btn.classList.contains('recording')) {
                 app.recognition.stop();
             } else {
-                app.recognition.start(); // ← iPhone/Safari OK
+                app.recognition.start();
             }
         } catch (e) {
             console.error(e);
@@ -890,3 +890,4 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('settingsModal').classList.remove('show');
         }
     });
+});  // ← ★これが必要
