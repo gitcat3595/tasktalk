@@ -867,13 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => setFilter(btn.dataset.filter));
     });
 
-    document.getElementById('apiSettingsBtn').addEventListener('click', openApiSettings);
-    document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
-
-    document.getElementById('closeApiModal').addEventListener('click', () => {
-        document.getElementById('apiSettingsModal').classList.remove('show');
-    });
-
+    
     document.getElementById('settingsBtn').addEventListener('click', openSettings);
     document.getElementById('closeModal').addEventListener('click', () => {
         document.getElementById('settingsModal').classList.remove('show');
