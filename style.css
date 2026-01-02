@@ -949,3 +949,15 @@ header h1 {
 .completion-message {
     text-align: center;
 }
+/* 完了画面を中央寄せ */
+.completion-screen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.completion-title,
+.completion-message {
+    text-align: center;
+}
