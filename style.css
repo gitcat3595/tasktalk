@@ -584,41 +584,47 @@ header h1 {
     background-color: rgba(122, 159, 181, 0.05);
 }
 
-/* 設定ボタン */
-/* 設定ボタン（中央寄せ・固定） */
-.settings-btn, .api-settings-btn {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    background: white;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    border-radius: 24px;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-/* 2つのボタンを左右に並べる（数値は好みで調整） */
+/* 設定ボタン（下部中央に固定） */
+.settings-btn,
 .api-settings-btn {
-    margin-left: -110px; /* 左へ */
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 24px;
+
+  padding: 12px 24px;
+  background: white;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 24px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  z-index: 2000;
 }
 
+/* 2つ並べるために左右にずらす */
 .settings-btn {
-    margin-left: 110px;  /* 右へ */
+  transform: translateX(calc(-50% - 90px));
 }
 
+.api-settings-btn {
+  transform: translateX(calc(-50% + 90px));
 }
 
-.settings-btn:hover, .api-settings-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+/* 狭い画面は縦並び */
+@media (max-width: 520px) {
+  .settings-btn {
+    transform: translateX(-50%);
+    bottom: 72px;
+  }
+  .api-settings-btn {
+    transform: translateX(-50%);
+    bottom: 24px;
+  }
 }
+
 
 /* モーダル */
 .modal {
