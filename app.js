@@ -462,6 +462,10 @@ function restartApp() {
     container.innerHTML = '';
     
     // 音声入力セクションにスクロール
+　　if (voiceSection) {
+        voiceSection.classList.remove('hidden');
+    }
+    
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -495,7 +499,7 @@ function getTimingLabel(timing) {
         case 'today': return '今日';
         case 'week': return '今週';
         case 'later': return 'そのうち';
-        default: return 'そのうち';
+        default: return '今日';
     }
 }
 
