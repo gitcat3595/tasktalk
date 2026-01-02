@@ -838,45 +838,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const recognitionReady = initSpeechRecognition();
 
-    // 未対応ブラウザは“音声入力→送信”に誘導（iPhone/Androidなど）
-    if (!recognitionReady) {
-        document.querySelector('.btn-text').textContent = '音声入力して送信';
-        statusText.textContent = 'スマホは「音声入力→送信」で使えます';
-    }
-
+    // 音声入力ボタン
     document.getElementById('voiceBtn').addEventListener('click', () => {
         if (!recognitionReady) {
-            openDictationModal();
+            alert('このブラウザでは音声認識が使えません');
             return;
         }
 
+        const btn = document.getElementById('voiceBtn');
+
         try {
-            const btn = document.getElementById('voiceBtn');
-            if (app.recognition && btn.classList.contains('recording')) {
+            if (btn.classList.contains('recording')) {
                 app.recognition.stop();
             } else {
-                app.recognition.start();
+                app.recognition.start(); // ← iPhone/Safari OK
             }
         } catch (e) {
             console.error(e);
-            statusText.textContent = '音声認識を開始できません。マイク許可を確認してください。';
+            statusText.textContent =
+                '音声認識を開始できません。マイク許可を確認してください。';
         }
     });
 
+    // フィルター
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+        btn.addEventListener('click', () => {
+            setFilter(btn.dataset.filter);
+        });
     });
 
-    
+    // カテゴリ設定
     document.getElementById('settingsBtn').addEventListener('click', openSettings);
     document.getElementById('closeModal').addEventListener('click', () => {
         document.getElementById('settingsModal').classList.remove('show');
-    });
-
-    document.getElementById('apiSettingsModal').addEventListener('click', (e) => {
-        if (e.target.id === 'apiSettingsModal') {
-            document.getElementById('apiSettingsModal').classList.remove('show');
-        }
     });
 
     document.getElementById('settingsModal').addEventListener('click', (e) => {
