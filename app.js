@@ -280,12 +280,14 @@ function renderTasks() {
         container.classList.add('hidden');
         filterSection.classList.add('hidden');
         header.classList.remove('hidden');
-        return;
+        document.getElementById('settingsBtn').style.display = 'none';
+    return;
     }
     
     // タスクがある場合は表示、ヘッダーは非表示
     container.classList.remove('hidden');
     filterSection.classList.remove('hidden');
+    document.getElementById('settingsBtn').style.display = 'block';
     header.classList.add('hidden');
     
     // カテゴリごとに表示（タスクがあるカテゴリのみ）
