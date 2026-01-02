@@ -585,9 +585,12 @@ header h1 {
 }
 
 /* 設定ボタン */
+/* 設定ボタン（中央寄せ・固定） */
 .settings-btn, .api-settings-btn {
     position: fixed;
     bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 12px 24px;
     background: white;
     border: 2px solid var(--primary-color);
@@ -599,12 +602,15 @@ header h1 {
     font-weight: 500;
 }
 
-.settings-btn {
-    right: 32px;
+/* 2つのボタンを左右に並べる（数値は好みで調整） */
+.api-settings-btn {
+    margin-left: -110px; /* 左へ */
 }
 
-.api-settings-btn {
-    right: 180px;
+.settings-btn {
+    margin-left: 110px;  /* 右へ */
+}
+
 }
 
 .settings-btn:hover, .api-settings-btn:hover {
@@ -950,4 +956,8 @@ header h1 {
 .restart-btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
+}
+.completion-screen,
+.completion-message {
+    text-align: center;
 }
