@@ -19,8 +19,9 @@ localStorage.removeItem('voicetask_tasks');
 function initSpeechRecognition() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+    // iPhone / Android など未対応なら false（＝後で“音声入力→送信”モードにする）
     if (!SpeechRecognition) {
-        alert('お使いのブラウザは音声認識に対応していません。Chrome、Edge、Safariをご利用ください。');
+        console.log('SpeechRecognition not supported -> dictation mode');
         return false;
     }
 
@@ -32,14 +33,11 @@ function initSpeechRecognition() {
     let transcript = '';
 
     app.recognition.onstart = () => {
-        const voiceBtn = document.getElementById('voiceBtn');
-        const statusText = document.getElementById('statusText');
-
-        voiceBtn.classList.add('recording');
+        document.getElementById('voiceBtn').classList.add('recording');
         document.querySelector('.btn-text').textContent = '録音中';
+        const statusText = document.getElementById('statusText');
         statusText.textContent = 'タップして録音を終了';
         statusText.classList.add('recording');
-
         transcript = '';
     };
 
@@ -52,21 +50,18 @@ function initSpeechRecognition() {
     };
 
     app.recognition.onend = () => {
-        const voiceBtn = document.getElementById('voiceBtn');
-        const statusText = document.getElementById('statusText');
-
-        voiceBtn.classList.remove('recording');
+        document.getElementById('voiceBtn').classList.remove('recording');
         document.querySelector('.btn-text').textContent = '話してみる';
+        const statusText = document.getElementById('statusText');
         statusText.classList.remove('recording');
 
         if (transcript.trim()) {
             statusText.textContent = 'リスト作成中...';
             app.tasks = [];
-
             setTimeout(() => {
                 processWithChatGPT(transcript);
                 transcript = '';
-            }, 100);
+            }, 50);
         } else {
             statusText.textContent = '内容からやることリストを作ります';
         }
@@ -74,22 +69,19 @@ function initSpeechRecognition() {
 
     app.recognition.onerror = (event) => {
         console.error('音声認識エラー:', event.error);
-
-        const voiceBtn = document.getElementById('voiceBtn');
-        const statusText = document.getElementById('statusText');
-
-        voiceBtn.classList.remove('recording');
+        document.getElementById('voiceBtn').classList.remove('recording');
         document.querySelector('.btn-text').textContent = '話してみる';
+        const statusText = document.getElementById('statusText');
         statusText.classList.remove('recording');
-        statusText.textContent = 'エラーが発生しました。もう一度お試しください。';
-
+        statusText.textContent = '音声認識エラー。マイク許可を確認してください。';
         setTimeout(() => {
             statusText.textContent = '内容からやることリストを作ります';
-        }, 3000);
+        }, 2000);
     };
 
     return true;
 }
+
 
 // ChatGPT APIでタスク抽出
 async function processWithChatGPT(text) {
@@ -835,9 +827,70 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
-  // まず、対応状況を必ず表示（ページ読み込み直後に出る）
-  const speechSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
-  alert(`SpeechRecognition supported: ${speechSupported}`);
+    loadCategories();
+    loadTasks();
+    loadApiKey();
+
+    const statusText = document.getElementById('statusText');
+    statusText.textContent = '内容からやることリストを作ります';
+
+    renderTasks();
+
+    const recognitionReady = initSpeechRecognition();
+
+    // 未対応ブラウザは“音声入力→送信”に誘導（iPhone/Androidなど）
+    if (!recognitionReady) {
+        document.querySelector('.btn-text').textContent = '音声入力して送信';
+        statusText.textContent = 'スマホは「音声入力→送信」で使えます';
+    }
+
+    document.getElementById('voiceBtn').addEventListener('click', () => {
+        if (!recognitionReady) {
+            openDictationModal();
+            return;
+        }
+
+        try {
+            const btn = document.getElementById('voiceBtn');
+            if (app.recognition && btn.classList.contains('recording')) {
+                app.recognition.stop();
+            } else {
+                app.recognition.start();
+            }
+        } catch (e) {
+            console.error(e);
+            statusText.textContent = '音声認識を開始できません。マイク許可を確認してください。';
+        }
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    });
+
+    document.getElementById('apiSettingsBtn').addEventListener('click', openApiSettings);
+    document.getElementById('saveApiKey').addEventListener('click', saveApiKey);
+
+    document.getElementById('closeApiModal').addEventListener('click', () => {
+        document.getElementById('apiSettingsModal').classList.remove('show');
+    });
+
+    document.getElementById('settingsBtn').addEventListener('click', openSettings);
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('settingsModal').classList.remove('show');
+    });
+
+    document.getElementById('apiSettingsModal').addEventListener('click', (e) => {
+        if (e.target.id === 'apiSettingsModal') {
+            document.getElementById('apiSettingsModal').classList.remove('show');
+        }
+    });
+
+    document.getElementById('settingsModal').addEventListener('click', (e) => {
+        if (e.target.id === 'settingsModal') {
+            document.getElementById('settingsModal').classList.remove('show');
+        }
+    });
+});
 
   // 以降の処理でDOM要素が無い場合に落ちるのを防ぐため、存在チェックしながら進める
   try {
