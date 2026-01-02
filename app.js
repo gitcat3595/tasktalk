@@ -834,6 +834,8 @@ function loadApiKey() {
 
 // イベントリスナー
 document.addEventListener('DOMContentLoaded', () => {
+    alert(!!(window.SpeechRecognition || window.webkitSpeechRecognition));
+
     loadCategories();
     loadTasks();
     loadApiKey();
