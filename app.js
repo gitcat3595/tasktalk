@@ -373,19 +373,21 @@ function renderTasks() {
 
 // 完了画面を表示
 function showCompletionScreen() {
-     const container = document.getElementById('tasksContainer');
+    const container = document.getElementById('tasksContainer');
     const filterSection = document.querySelector('.filter-section');
     const voiceSection = document.querySelector('.voice-input-section');
     const settingsBtn = document.getElementById('settingsBtn');
 
+    // カテゴリ設定ボタンは非表示
     if (settingsBtn) {
         settingsBtn.style.display = 'none';
     }
 
+    // 表示制御
     container.classList.remove('hidden');
     filterSection.classList.add('hidden');
-    voiceSection.classList.add('hidden');
 
+    // 完成画面を描画
     container.innerHTML = `
         <div class="completion-screen">
             <h2 class="completion-title">すべて終わりです<br>おつかれさま！</h2>
@@ -396,10 +398,17 @@ function showCompletionScreen() {
             </p>
         </div>
     `;
-}
-    // バブルエフェクトを大量に発生
-    createMassiveBubbleBurst();
 
+  
+    // 「話してみる」を完成画面の一番下へ移動
+    container.appendChild(voiceSection);
+    voiceSection.classList.remove('hidden');
+
+    // バブル演出
+    createMassiveBubbleBurst();
+}
+
+   
 // 大量のバブル破裂エフェクト
 function createMassiveBubbleBurst() {
     const bubbleCount = 50;
