@@ -18,75 +18,76 @@ localStorage.removeItem('voicetask_tasks');
 // 音声認識の初期化
 function initSpeechRecognition() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
+
     if (!SpeechRecognition) {
         alert('お使いのブラウザは音声認識に対応していません。Chrome、Edge、Safariをご利用ください。');
         return false;
     }
-    
+
     app.recognition = new SpeechRecognition();
     app.recognition.lang = 'ja-JP';
-    app.recognition.continuous = false;
-    app.recognition.interimResults = true;
-    
+    app.recognition.continuous = true;
+    app.recognition.interimResults = false;
+
     let transcript = '';
-    
+
     app.recognition.onstart = () => {
-        document.getElementById('voiceBtn').classList.add('recording');
-        document.querySelector('.btn-text').textContent = '録音中';
+        const voiceBtn = document.getElementById('voiceBtn');
         const statusText = document.getElementById('statusText');
+
+        voiceBtn.classList.add('recording');
+        document.querySelector('.btn-text').textContent = '録音中';
         statusText.textContent = 'タップして録音を終了';
         statusText.classList.add('recording');
+
         transcript = '';
     };
-    
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-     transcript += event.results[i][0].transcript;
-      }
+
+    app.recognition.onresult = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) {
+                transcript += event.results[i][0].transcript;
+            }
+        }
     };
-    
+
     app.recognition.onend = () => {
-        document.getElementById('voiceBtn').classList.remove('recording');
-        document.querySelector('.btn-text').textContent = '話してみる';
+        const voiceBtn = document.getElementById('voiceBtn');
         const statusText = document.getElementById('statusText');
+
+        voiceBtn.classList.remove('recording');
+        document.querySelector('.btn-text').textContent = '話してみる';
         statusText.classList.remove('recording');
-        
+
         if (transcript.trim()) {
-            console.log('━━━━━━━━━━━━━━━━━━');
-            console.log('📝 文字起こし完了');
-            console.log('━━━━━━━━━━━━━━━━━━');
-            console.log(transcript);
-            console.log('━━━━━━━━━━━━━━━━━━\n');
-            
             statusText.textContent = 'リスト作成中...';
-            
-            // 既存タスクを全削除
             app.tasks = [];
-            
+
             setTimeout(() => {
                 processWithChatGPT(transcript);
                 transcript = '';
             }, 100);
         } else {
             statusText.textContent = '内容からやることリストを作ります';
-            setTimeout(() => {
-                // statusTextはそのまま残す
-            }, 2000);
         }
     };
-    
+
     app.recognition.onerror = (event) => {
         console.error('音声認識エラー:', event.error);
-        document.getElementById('voiceBtn').classList.remove('recording');
-        document.querySelector('.btn-text').textContent = '話してみる';
+
+        const voiceBtn = document.getElementById('voiceBtn');
         const statusText = document.getElementById('statusText');
+
+        voiceBtn.classList.remove('recording');
+        document.querySelector('.btn-text').textContent = '話してみる';
         statusText.classList.remove('recording');
         statusText.textContent = 'エラーが発生しました。もう一度お試しください。';
+
         setTimeout(() => {
             statusText.textContent = '内容からやることリストを作ります';
         }, 3000);
     };
-    
+
     return true;
 }
 
