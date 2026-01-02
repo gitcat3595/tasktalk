@@ -26,8 +26,8 @@ function initSpeechRecognition() {
     
     app.recognition = new SpeechRecognition();
     app.recognition.lang = 'ja-JP';
-    app.recognition.continuous = true;
-    app.recognition.interimResults = false;
+    app.recognition.continuous = false;
+    app.recognition.interimResults = true;
     
     let transcript = '';
     
@@ -40,12 +40,9 @@ function initSpeechRecognition() {
         transcript = '';
     };
     
-    app.recognition.onresult = (event) => {
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            if (event.results[i].isFinal) {
-                transcript += event.results[i][0].transcript;
-            }
-        }
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+     transcript += event.results[i][0].transcript;
+      }
     };
     
     app.recognition.onend = () => {
