@@ -372,10 +372,18 @@ function renderTasks() {
     
 //    
 const voiceSection = document.querySelector('.voice-input-section');
+const voiceBtnText = voiceSection?.querySelector('.btn-text');
+
 if (voiceSection) {
     container.appendChild(voiceSection);
     voiceSection.classList.remove('hidden');
+
+    // ★ タスク作成後は文言を変更
+    if (voiceBtnText) {
+        voiceBtnText.textContent = 'もう一度話す';
+    }
 }
+
 }
 // 完了画面を表示
 function showCompletionScreen() {
