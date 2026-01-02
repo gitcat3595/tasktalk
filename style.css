@@ -585,13 +585,10 @@ header h1 {
 }
 
 /* 設定ボタン（下部中央に固定） */
-.settings-btn,
-.api-settings-btn {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 24px;
-
+.settings-btn {
+  position: static;          /* fixed をやめる */
+  display: none;             /* 初期は非表示（JSで表示） */
+  margin: 24px auto 40px;    /* 中央寄せ */
   padding: 12px 24px;
   background: white;
   border: 2px solid var(--primary-color);
@@ -601,29 +598,14 @@ header h1 {
   box-shadow: var(--shadow);
   transition: all 0.3s ease;
   font-weight: 500;
-  z-index: 2000;
+}
+.settings-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
-/* 2つ並べるために左右にずらす */
-.settings-btn {
-  transform: translateX(calc(-50% - 90px));
-}
-
-.api-settings-btn {
-  transform: translateX(calc(-50% + 90px));
-}
-
-/* 狭い画面は縦並び */
-@media (max-width: 520px) {
-  .settings-btn {
-    transform: translateX(-50%);
-    bottom: 72px;
-  }
-  .api-settings-btn {
-    transform: translateX(-50%);
-    bottom: 24px;
-  }
-}
 
 
 /* モーダル */
