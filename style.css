@@ -977,7 +977,3 @@ header h1 {
     text-align: center;
 }
 
-/* 完了画面のときは grid を無効化 */
-.tasks-container:has(.completion-screen) {
-    display: block;
-}
