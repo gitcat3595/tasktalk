@@ -1,0 +1,821 @@
+:root {
+    --primary-color: #7A9FB5;
+    --secondary-color: #B8D4E0;
+    --bg-color: #F5F7FA;
+    --card-bg: #FFFFFF;
+    --text-primary: #2C3E50;
+    --text-secondary: #7F8C8D;
+    --border-color: #E0E6ED;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+    
+    /* デフォルトカテゴリカラー */
+    --category-work: #7A9FB5;
+    --category-home: #A8C5B8;
+    --category-personal: #C4A8C7;
+    --category-other: #B8B8B8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ヘッダー */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px 20px 30px;
+}
+
+header.hidden {
+    display: none;
+}
+
+.app-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.cta-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* ヘッダー - パターン1: Nunito (丸みのあるモダン) */
+.header-pattern-1 {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px 20px 30px;
+    background: linear-gradient(135deg, rgba(122, 159, 181, 0.08), rgba(184, 212, 224, 0.15));
+    border-radius: 24px;
+}
+
+.header-pattern-1 .app-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.header-pattern-1 .tagline {
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.header-pattern-1 .description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.header-pattern-1 .cta-text {
+    font-size: 13px;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 16px;
+    font-style: normal;
+}
+
+/* 音声入力セクション */
+.voice-input-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.voice-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 200px;
+}
+
+.voice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.voice-btn.recording {
+    background: linear-gradient(135deg, #E74C3C 0%, #DC6254 50%, #D04739 100%);
+    animation: recordingPulse 1s infinite;
+}
+
+@keyframes recordingPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3), 0 0 0 0 rgba(231, 76, 60, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 4px 20px rgba(231, 76, 60, 0.5), 0 0 0 6px rgba(231, 76, 60, 0);
+    }
+}
+
+.status-text {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    min-height: 20px;
+    opacity: 0.7;
+}
+
+.status-text.recording {
+    opacity: 1;
+    color: #E74C3C;
+    font-weight: 500;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* フィルターセクション */
+.filter-section {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.filter-section.hidden {
+    display: none;
+}
+
+.filter-btn {
+    padding: 8px 24px;
+    border: 2px solid var(--border-color);
+    background: white;
+    color: var(--text-secondary);
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* タスクコンテナ */
+.tasks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.tasks-container.hidden {
+    display: none;
+}
+
+/* カテゴリカード - 角を丸く、グラデーション強化 */
+.category-card {
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f3f7 100%);
+    border-radius: 20px; /* 12px → 20px */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 
+                0 4px 24px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.category-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12),
+                0 8px 32px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
+}
+
+.category-header {
+    padding: 16px 20px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: filter 0.2s ease;
+    position: relative;
+    background: linear-gradient(135deg, var(--category-color) 0%, var(--category-color-light) 100%);
+    border-radius: 20px 20px 0 0; /* 12px → 20px */
+    overflow: hidden;
+}
+
+.category-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.05) 100%);
+    pointer-events: none;
+}
+
+.category-header:hover {
+    filter: brightness(1.08);
+}
+
+.task-count {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-list {
+    padding: 12px;
+}
+
+.add-task-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background: transparent;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-task-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(122, 159, 181, 0.05);
+}
+
+.add-task-btn::before {
+    content: '+';
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.task-item:hover {
+    background: var(--bg-color);
+}
+
+.task-item.completed {
+    opacity: 0.6;
+}
+
+/* バブル風チェックボックス - 少し小さく、グラデーション追加 */
+.task-bubble {
+    width: 20px; /* 22px → 20px */
+    height: 20px; /* 22px → 20px */
+    min-width: 20px;
+    border-radius: 50%;
+    margin-right: 12px;
+    margin-top: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    background: linear-gradient(135deg, var(--bubble-color, #7A9FB5) 0%, var(--bubble-color-dark, #5B8FA3) 100%);
+}
+
+.task-bubble:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.task-bubble::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+    border-radius: 50%;
+    filter: blur(1.5px);
+}
+
+.task-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.task-text {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    flex: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1.5;
+}
+
+.task-text:hover {
+    color: var(--primary-color);
+    background: rgba(122, 159, 181, 0.1);
+}
+
+/* プレースホルダーを消す */
+.task-text[contenteditable="true"]:empty:before {
+    content: attr(data-placeholder);
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.task-text[contenteditable="true"]:focus:before {
+    content: '';
+}
+
+.task-text[contenteditable="true"] {
+    outline: 2px solid var(--primary-color);
+    background: white;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+}
+
+.task-timing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    width: 60px;
+    height: 28px;
+}
+
+.task-timing:hover {
+    border-color: var(--primary-color);
+    background: rgba(122, 159, 181, 0.05);
+}
+
+.timing-display {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* ドラッグ中のスタイル */
+.task-item[draggable="true"] {
+    cursor: move;
+}
+
+.task-item:active {
+    cursor: grabbing;
+}
+
+.category-card.drag-over {
+    background-color: rgba(122, 159, 181, 0.05);
+}
+
+/* 設定ボタン（下部中央に固定） */
+.settings-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background: white;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 24px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    font-weight: 500;
+    z-index: 1000;
+}
+
+.settings-btn:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.category-setting-item {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--bg-color);
+    border-radius: 8px;
+}
+
+.category-setting-item label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.category-setting-item input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.color-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 2px white, 0 0 0 4px var(--text-primary);
+}
+
+/* バブル破裂エフェクト */
+.bubble {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: bubbleBurst 0.8s ease-out forwards;
+}
+
+@keyframes bubbleBurst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .tasks-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-pattern-1 .app-title {
+        font-size: 48px;
+    }
+    
+    .voice-btn {
+        padding: 14px 32px;
+        font-size: 1rem;
+    }
+    
+    .settings-btn {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        background: white;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        z-index: 200;
+    }
+
+    /* タスクリストの下に余白を作る */
+    .tasks-container {
+        padding-bottom: 100px;
+    }
+    
+    .task-timing {
+        padding: 5px 10px;
+    }
+    
+    .timing-display {
+        font-size: 0.7rem;
+    }
+}
+
+/* API設定スタイル */
+.api-info {
+    background: var(--bg-color);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.api-info p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.api-info a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.api-key-input {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.api-key-input label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.api-key-input input {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+.save-btn {
+    padding: 12px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.api-status {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    min-height: 20px;
+}
+
+.api-status.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.api-status.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* 空の状態 */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.empty-state small {
+    font-size: 0.9rem;
+}
+
+/* 完了画面 */
+.completion-screen {
+    text-align: center;
+    padding: 80px 20px;
+    animation: fadeIn 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.completion-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 30pt;
+    font-weight: 900;
+    background: linear-gradient(135deg, #E8A598, #D8A5B8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.completion-message {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.restart-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    min-width: 200px;
+}
+
+.restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
