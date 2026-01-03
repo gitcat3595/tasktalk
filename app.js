@@ -9,7 +9,7 @@ const app = {
     ],
     currentFilter: 'all',
     recognition: null,
-    apiKey: null
+    apiKey: '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'  // ← ここにあなたのAPIキーを入れる
 };
 
 // 初期化
