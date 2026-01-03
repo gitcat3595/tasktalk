@@ -170,8 +170,9 @@ async function processWithChatGPT(text) {
         }, 3000);
         
     } catch (error) {
-        console.error('❌ ChatGPT API エラー:', error);
-        document.getElementById('statusText').textContent = 'API エラーが発生しました。ダミーデータを使用します。';
+    console.error('❌ ChatGPT API エラー:', error);
+    console.error('エラー詳細:', error.message);
+    document.getElementById('statusText').textContent = `API エラー: ${error.message}`;
         
         setTimeout(() => {
             useDummyData(text);
