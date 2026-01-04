@@ -1,4 +1,4 @@
-# TaskTalk - しゃべるだけでやること整理
+# shabelist - しゃべるだけでやること整理
 
 音声で話した内容をAIで自動解析してタスクリスト化する、シンプルでモダンなタスク管理アプリです。
 
@@ -230,4 +230,4 @@ All Rights Reserved - Red Pen Journaling 2026
 
 ---
 
-**Enjoy TaskTalk!✨**
+**Enjoy shabelist✨**
